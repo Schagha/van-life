@@ -1,12 +1,13 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
+import imageUrl from "../assets/images/avatar.png"
 
 const Header = () => {
 
   return (
     <header>
       <Link className="site-logo" to="/">
-        VanLife
+        #VanLife
       </Link>
       <nav>
         <NavLink
@@ -27,6 +28,12 @@ const Header = () => {
         >
           Vans
         </NavLink>
+        <Link to="login" className="login-link">
+          <img 
+            src={imageUrl}
+            className="login-icon"
+          />
+        </Link>
       </nav>
     </header>
   );
