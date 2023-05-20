@@ -1,15 +1,16 @@
-import React, {useState, useEffect} from "react"
-import { Link } from "react-router-dom"
+import React, { Suspense } from "react"
+import { Link, useLoaderData, defer, Await } from "react-router-dom"
+import { getHostVans } from "../../api"
+import { requireAuth } from "../../utils"
 
+export async function loader(request) {
+    await requireAuth(request)
+    return defer ({vans: getHostVans()})
+}
 export default function HostVans() {
-    const [vans, setVans] = useState([])
+    const dataPromise = useLoaderData()
 
-    useEffect(() => {
-        fetch("/api/host/vans")
-            .then(res => res.json())
-            .then(data => setVans(data.vans))
-    }, [])
-
+function renderVansEls(vans) {
     const hostVansEls = vans.map(van => (
         <Link
             to={van.id}
@@ -25,16 +26,22 @@ export default function HostVans() {
             </div>
         </Link>
     ))
+    return (
+        <div className="host-vans-list">
+            <section>{hostVansEls}</section> 
+        </div>
+    )
+}
+  
 
     return (
         <section>
             <h1 className="host-vans-title">Your listed vans</h1>
-            <div className="host-vans-list">
-                { vans.length > 0 ? 
-                  (<section>{hostVansEls}</section>) 
-                  : (<h2>Loading...</h2> )
-                }
-            </div>
+            <Suspense fallback={<h2>Loading vans...</h2>}>
+                <Await resolve={dataPromise.vans}>
+                    {renderVansEls}
+                </Await>
+            </Suspense>
         </section>
     )
 }

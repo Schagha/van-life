@@ -2,7 +2,16 @@ import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import imageUrl from "../assets/images/avatar.png"
 
-const Header = () => {
+export default function Header() {
+  const activeStyle = {
+    fontWeight: "bold",
+    textDecoration: "underline",
+    color: "#161616"
+  }
+
+  function fakeLogout() {
+    localStorage.removeItem("loggedin")
+  }
 
   return (
     <header>
@@ -34,9 +43,8 @@ const Header = () => {
             className="login-icon"
           />
         </Link>
+        <button onClick={fakeLogout}>X</button>
       </nav>
     </header>
   );
 };
-
-export default Header;
