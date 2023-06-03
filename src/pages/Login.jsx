@@ -15,7 +15,8 @@ export async function action({ request }) {
   try {
     const data = await loginUser({ email, password })
     localStorage.setItem("loggedin", true)
-    return redirect(pathname)
+    // return redirect(pathname)
+    window.location.href = pathname
   } catch (err) {
     return err.message
   }
