@@ -1,6 +1,10 @@
 # 📣 **Summary**
 
-This application (**Van-Life**) is built in React JS using Router DOM v6.11, and Vite.js. 
+This application (**Van-Life**) is built in React JS using Router DOM v6.11, and Vite.js. The app is deployed in netlify.
+
+## App-URL
+
+van-life-abcd.netlify.app 
 
 ## Source
 
